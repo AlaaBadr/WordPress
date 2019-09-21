@@ -8,7 +8,6 @@ if ( ! class_exists( 'Event' ) ):
 
         public static function registerEventType()
         {
-
             $labels = array(
                 'name' => 'Events',
                 'singular_name' => 'Event',
@@ -48,12 +47,10 @@ if ( ! class_exists( 'Event' ) ):
             );
 
             register_post_type('event', $args);
-
         }
 
         public static function registerEventFields(WP_Post $post)
         {
-
             add_meta_box('event_meta', 'Event Details', function () use ($post) {
 
                 $event_date = 'event_date';
@@ -108,14 +105,11 @@ if ( ! class_exists( 'Event' ) ):
                 </table>
 
                 <?php
-
             });
-
         }
 
         public static function saveMetaBoxFields($post_id)
         {
-
             if (isset($_POST['event_date'])) {
                 $my_data = sanitize_text_field($_POST['event_date']);
 
@@ -133,7 +127,43 @@ if ( ! class_exists( 'Event' ) ):
 
                 update_post_meta($post_id, 'end_time', $my_data);
             }
+        }
 
+        public static function setPostCategory( $posts )
+        {
+            foreach ( $posts as $post ) {
+
+                $post_type = get_post_type($post->ID);
+
+                if ( $post_type != 'event' )
+                    continue;
+
+                $date = get_post_field('event_date', $post->ID );
+
+                if ( $date < current_time( 'Y-m-d' ) ) {
+                    wp_set_post_categories( $post->ID, get_cat_ID( 'past' ), true );
+                    wp_remove_object_terms( $post->ID, 'upcoming', 'category' );
+                }
+                elseif ( $date == current_time( 'Y-m-d' ) ) {
+                    $start_time = get_post_field('start_time', $post->ID );
+                    $date = new DateTime("now", new DateTimeZone('Africa/Cairo'));
+                    $current_time = $date->format('H:i');
+                    if ( $start_time <= $current_time ) {
+                        wp_set_post_categories( $post->ID, get_cat_ID( 'past' ), true );
+                        wp_remove_object_terms( $post->ID, 'upcoming', 'category' );
+                    } else {
+                        wp_set_post_categories( $post->ID, get_cat_ID( 'upcoming' ), true );
+                        wp_remove_object_terms( $post->ID, 'past', 'category' );
+                    }
+                }
+                else {
+                    wp_set_post_categories( $post->ID, get_cat_ID( 'upcoming' ), true );
+                    wp_remove_object_terms( $post->ID, 'past', 'category' );
+                }
+
+            }
+
+            return $posts;
         }
     }
 endif;

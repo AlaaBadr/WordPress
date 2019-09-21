@@ -25,3 +25,6 @@ add_filter( 'widget_categories_args', array( 'CustomTheme', 'removeUncategorized
 
 // create categories needed by Events
 add_action( 'admin_init', array( 'CustomTheme', 'createEventCategories' ) );
+
+// attach each event to a category
+add_filter( 'the_posts', array( 'Event', 'setPostCategory' ) );
