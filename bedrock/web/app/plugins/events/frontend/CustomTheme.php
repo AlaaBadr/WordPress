@@ -44,5 +44,16 @@ if ( ! class_exists( 'CustomTheme' ) ):
             }
         }
 
+        public static function removeUncategorized ( $args )
+        {
+            $args["exclude"] = get_cat_ID( 'Uncategorized' );
+            return $args;
+        }
+
+        public static function createEventCategories()
+        {
+            wp_create_categories( array( 'past', 'upcoming' ) );
+        }
+
     }
 endif;

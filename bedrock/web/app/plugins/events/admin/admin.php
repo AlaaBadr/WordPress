@@ -19,3 +19,9 @@ add_action( 'save_post', array( 'Event', 'saveMetaBoxFields' ) );
 
 // register menu Event
 add_action( 'init', array( 'CustomTheme', 'registerNavMenu' ) );
+
+// remove Uncategorized from my widgets in sidebar
+add_filter( 'widget_categories_args', array( 'CustomTheme', 'removeUncategorized' ) );
+
+// create categories needed by Events
+add_action( 'admin_init', array( 'CustomTheme', 'createEventCategories' ) );
