@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) or die();
 require_once( 'Menu.php' );
 require_once( 'Event.php' );
 require_once( dirname(__DIR__).'/frontend/CustomTheme.php' );
+require_once( dirname( __DIR__ ).'/database/CRUD.php' );
 
 // register your custom settings
 add_action( 'admin_init', array( 'Menu', 'registerSettings' ) );
@@ -20,8 +21,8 @@ add_action( 'save_post', array( 'Event', 'saveMetaBoxFields' ) );
 // register menu Event
 add_action( 'init', array( 'CustomTheme', 'registerNavMenu' ) );
 
-// remove Uncategorized from my widgets in sidebar
-add_filter( 'widget_categories_args', array( 'CustomTheme', 'removeUncategorized' ) );
+// remove Un-categorized from my widgets in sidebar
+add_filter( 'widget_categories_args', array( 'CustomTheme', 'removeUnCategorized' ) );
 
 // create categories needed by Events
 add_action( 'admin_init', array( 'CustomTheme', 'createEventCategories' ) );
@@ -37,3 +38,6 @@ add_filter( 'pre_get_posts', array( 'CustomTheme', 'checkShowingPastEvents' ) );
 
 // paginate events
 add_filter( 'pre_get_posts', array( 'CustomTheme', 'getEventsLimitPerPage' ) );
+
+// save/update event to custom table
+add_action( 'save_post', array( 'CRUD', 'createEvent' ), 10, 3 );

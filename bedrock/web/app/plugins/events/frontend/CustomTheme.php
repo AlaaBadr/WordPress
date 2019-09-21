@@ -44,7 +44,7 @@ if ( ! class_exists( 'CustomTheme' ) ):
             }
         }
 
-        public static function removeUncategorized ( $args )
+        public static function removeUnCategorized ( $args )
         {
             $args["exclude"] = get_cat_ID( 'Uncategorized' );
             return $args;
