@@ -28,3 +28,6 @@ add_action( 'admin_init', array( 'CustomTheme', 'createEventCategories' ) );
 
 // attach each event to a category
 add_filter( 'the_posts', array( 'Event', 'setPostCategory' ) );
+
+//let events CPT appear in categories
+add_filter( 'pre_get_posts', array( 'CustomTheme', 'appearEventsCategories' ) );

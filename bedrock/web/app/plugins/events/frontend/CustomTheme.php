@@ -55,5 +55,14 @@ if ( ! class_exists( 'CustomTheme' ) ):
             wp_create_categories( array( 'past', 'upcoming' ) );
         }
 
+        public static function appearEventsCategories()
+        {
+            if ( is_category() || is_tag() ) {
+
+                set_query_var( 'post_type', array( 'post', 'event' ) );
+
+            }
+        }
+
     }
 endif;
