@@ -21,9 +21,11 @@ if ( ! class_exists( 'Events' ) ):
         private function __construct() {
             $this->initializeHooks();
             $this->setupDatabase();
+            $this->deactivatePlugin();
         }
 
-        public static function getInstance() {
+        public static function getInstance()
+        {
             if ( is_null( self::$instance ) ) {
                 self::$instance = new self();
             }
@@ -31,14 +33,23 @@ if ( ! class_exists( 'Events' ) ):
             return self::$instance;
         }
 
-        private function initializeHooks() {
+        private function initializeHooks()
+        {
             require_once( 'admin/admin.php' );
         }
 
-        private function setupDatabase() {
+        private function setupDatabase()
+        {
             require_once('database/Database.php');
 
             register_activation_hook( __FILE__, array( 'Database', 'createDatabaseTable' ) );
+        }
+
+        private function deactivatePlugin()
+        {
+            require_once('uninstall.php');
+
+            register_deactivation_hook( __FILE__, 'deactivatePlugin' );
         }
 
 	}
