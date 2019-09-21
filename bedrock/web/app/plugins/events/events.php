@@ -20,6 +20,7 @@ if ( ! class_exists( 'Events' ) ):
          */
         private function __construct() {
             $this->initializeHooks();
+            $this->setupDatabase();
         }
 
         public static function getInstance() {
@@ -33,6 +34,13 @@ if ( ! class_exists( 'Events' ) ):
         private function initializeHooks() {
             require_once( 'admin/admin.php' );
         }
+
+        private function setupDatabase() {
+            require_once('database/Database.php');
+
+            register_activation_hook( __FILE__, array( 'Database', 'createDatabaseTable' ) );
+        }
+
 	}
 endif;
 
