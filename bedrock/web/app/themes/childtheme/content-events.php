@@ -29,8 +29,8 @@
     <?php else : ?>
         <div class="entry-content">
             <?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'twentyeleven' ) ); ?>
-            <p>Event Date: <?php echo get_post_field('event_date'); ?></p>
-            <pre>From: <?php echo get_post_field('start_time'); ?>          To: <?php echo get_post_field('end_time'); ?></pre>
+            <p>Event Date: <?php echo get_post()->event_date; ?></p>
+            <pre>From: <?php echo get_post()->start_time; ?>          To: <?php echo get_post()->end_time; ?></pre>
             <?php
             wp_link_pages(
                 array(

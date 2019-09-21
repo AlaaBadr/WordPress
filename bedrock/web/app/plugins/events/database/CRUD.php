@@ -66,6 +66,32 @@ if ( ! class_exists( 'CRUD' ) ):
             }
         }
 
+        public static function retrieveEvent( $posts )
+        {
+            global $wpdb;
+            $table_name = $wpdb->prefix . 'events';
+
+            if ( ! count( $posts ) )
+                return $posts;
+
+            foreach ( $posts as $post ) {
+
+                $post_type = get_post_type($post->ID);
+
+                if ( $post_type != 'event' )
+                    continue;
+
+                $query = "SELECT date,start_at,end_at FROM $table_name WHERE wp_id = $post->ID";
+
+                $custom_fields    = $wpdb->get_results( $query )[0];
+                $post->event_date = substr( $custom_fields->date, 0, 10);
+                $post->start_time = substr( $custom_fields->start_at, 0, 5 );
+                $post->end_time   = substr( $custom_fields->end_at, 0, 5 );
+            }
+
+            return $posts;
+        }
+
         public static function trashEvent( $post_id )
         {
             $post_type = get_post_type($post_id);

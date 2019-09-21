@@ -72,8 +72,8 @@
             </div><!-- #author-info -->
         <?php endif; ?>
         <div class="entry-content">
-            <p>Event Date: <?php echo get_post_field('event_date'); ?></p>
-            <pre>From: <?php echo get_post_field('start_time'); ?>          To: <?php echo get_post_field('end_time'); ?></pre>
+            <p>Event Date: <?php echo get_post()->event_date; ?></p>
+            <pre>From: <?php echo get_post()->start_time; ?>          To: <?php echo get_post()->end_time; ?></pre>
         </div><!-- .entry-content -->
     </footer><!-- .entry-meta -->
 </article><!-- #post-<?php the_ID(); ?> -->
