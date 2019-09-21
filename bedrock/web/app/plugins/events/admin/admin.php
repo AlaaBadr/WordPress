@@ -40,7 +40,7 @@ add_filter( 'pre_get_posts', array( 'CustomTheme', 'checkShowingPastEvents' ) );
 add_filter( 'pre_get_posts', array( 'CustomTheme', 'getEventsLimitPerPage' ) );
 
 // save/update event to custom table
-add_action( 'save_post', array( 'CRUD', 'createEvent' ), 10, 3 );
+add_action( 'save_post', array( 'CRUD', 'createEvent' ) );
 
 // soft delete event in custom table
 add_action( 'trashed_post', array( 'CRUD', 'trashEvent' ) );

@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or die();
 if ( ! class_exists( 'CRUD' ) ):
     class CRUD
     {
-        public static function createEvent( $post_id, $post, $update )
+        public static function createEvent( $post_id )
         {
             $post_type = get_post_type($post_id);
 
@@ -33,10 +33,13 @@ if ( ! class_exists( 'CRUD' ) ):
             if (isset($_POST['tax_input']['post_tag']))
                 $tags = sanitize_text_field($_POST['tax_input']['post_tag']);
 
-            $image_path = get_the_post_thumbnail_url($post_id);
+            $image_path = get_the_post_thumbnail_url( $post_id );
             if (!$image_path) {
                 $image_path = '';
             }
+
+            $categories_array = wp_get_post_categories( $post_id, array( 'fields' => 'names' ) );
+            $categories = implode( ',', array_values( $categories_array ) );
 
             global $wpdb;
             $table_name = $wpdb->prefix . 'events';
@@ -52,7 +55,8 @@ if ( ! class_exists( 'CRUD' ) ):
                 'start_at'    => $start_time,
                 'end_at'      => $end_time,
                 'tags'        => $tags,
-                'image_path'  => $image_path
+                'image_path'  => $image_path,
+                'categories'  => $categories
             );
 
             if ( count( $results ) == 0 ) {

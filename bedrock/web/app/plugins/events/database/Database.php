@@ -25,9 +25,9 @@ if ( ! class_exists( 'Database' ) ):
 				`description` text NULL,
                 `image_path` text NULL,
 				`date` datetime DEFAULT CURRENT_TIMESTAMP() NOT NULL,
-				`start_at` TIME (0) NULL,
-                `end_at` TIME (0) NULL,
-                `category` text DEFAULT 'upcoming' NOT NULL,
+				`start_at` TIME (0) NOT NULL,
+                `end_at` TIME (0) NOT NULL,
+                `categories` text DEFAULT 'upcoming' NOT NULL,
                 `tags` text NULL,
                 `trashed` boolean DEFAULT FALSE NOT NULL,
 				PRIMARY KEY (`id`)
