@@ -64,5 +64,36 @@ if ( ! class_exists( 'CustomTheme' ) ):
             }
         }
 
+        public static function checkShowingPastEvents()
+        {
+            if ( ! is_admin() ) {
+
+                $limit = get_option('events-number');
+
+                set_query_var('posts_per_archive_page', $limit);
+
+                if ( ! get_option( 'show-past-events' ) ) {
+
+                    $past_cat_id = get_cat_ID( 'past' );
+                    set_query_var( 'cat', -$past_cat_id );
+
+                    add_filter( 'widget_categories_args', function( $args ) use ( $past_cat_id ) {
+
+                        $args["exclude"] .= ','.$past_cat_id;
+                        return $args;
+
+                    } );
+
+                }
+
+                if ( get_option( 'show-past-events' ) && ! is_category() ) {
+
+                    $past_cat_id = get_cat_ID( 'past' );
+                    set_query_var( 'cat', -$past_cat_id );
+
+                }
+
+            }
+        }
     }
 endif;
