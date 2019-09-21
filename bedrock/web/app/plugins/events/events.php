@@ -13,28 +13,26 @@ if ( ! class_exists( 'Events' ) ):
 
 	final class Events {
 
-		private static $instance = null;
+        private static $instance = null;
 
-		/**
-		 * Events constructor.
-		 */
-		private function __construct() {
-			$this->initializeHooks();
-		}
+        /**
+         * Events constructor.
+         */
+        private function __construct() {
+            $this->initializeHooks();
+        }
 
-		public static function getInstance() {
-			if ( is_null( self::$instance ) ) {
-				self::$instance = new self();
-			}
+        public static function getInstance() {
+            if ( is_null( self::$instance ) ) {
+                self::$instance = new self();
+            }
 
-			return self::$instance;
-		}
+            return self::$instance;
+        }
 
-		private function initializeHooks() {
-			if ( is_admin() ) {
-				require_once( 'admin/admin.php' );
-			}
-		}
+        private function initializeHooks() {
+            require_once( 'admin/admin.php' );
+        }
 	}
 endif;
 

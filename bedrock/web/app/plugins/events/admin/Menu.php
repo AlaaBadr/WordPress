@@ -26,9 +26,9 @@ class Menu
 
         <form action="options.php" method="post">
 
-	        <?php
-	        settings_fields( 'settings-group' );
-	        ?>
+            <?php
+            settings_fields( 'settings-group' );
+            ?>
 
             <input id="past-events" type="checkbox" name="show-past-events" value="yes"
                 <?php checked( get_option( 'show-past-events' ), 'yes' ) ?>>
@@ -36,8 +36,8 @@ class Menu
 
             <br><br>
 
-            <label><?php _e( 'Number of Events in listing page', 'even,ts' ) ?></label>
-            <input id="events-num" type="number" min=1 name="events-number" value="<?php echo get_option( 'events-number' ) ?>">
+            <label><?php _e( 'Number of Events in listing page', 'events' ) ?></label>
+            <input id="events-num" type="number" min=1 name="events-number" value="<?php echo get_option( 'events-number' ); ?>">
 
             <br><br>
 
@@ -50,9 +50,11 @@ class Menu
         <?php
     }
 
-	public static function registerSettings() {
-		register_setting( 'settings-group', 'show-past-events' );
-		register_setting( 'settings-group', 'events-number' );
-	}
+    public static function registerSettings() {
+
+        register_setting( 'settings-group', 'show-past-events' );
+        register_setting( 'settings-group', 'events-number' );
+
+    }
 }
 endif;
