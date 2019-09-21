@@ -97,6 +97,9 @@ if ( ! class_exists( 'CustomTheme' ) ):
             if ( ! is_admin() ) {
                 $limit = get_option('events-number');
 
+                if ( ! isset( $limit ) )
+                    $limit = 5;
+
                 set_query_var('posts_per_archive_page', $limit);
             }
         }

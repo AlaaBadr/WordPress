@@ -78,7 +78,7 @@ if ( ! class_exists( 'CRUD' ) ):
 
                 $post_type = get_post_type($post->ID);
 
-                if ( $post_type != 'event' )
+                if ( $post_type != 'event' || $post->post_status != 'publish' )
                     continue;
 
                 $query = "SELECT date,start_at,end_at FROM $table_name WHERE wp_id = $post->ID";
