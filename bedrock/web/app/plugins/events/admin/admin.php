@@ -46,7 +46,7 @@ add_action( 'save_post', array( 'CRUD', 'createEvent' ), 10, 3 );
 add_action( 'trashed_post', array( 'CRUD', 'trashEvent' ) );
 
 // restore event in custom table
-add_action( 'untrash_post', array( 'Crud', 'untrashEvent' ) );
+add_action( 'untrash_post', array( 'CRUD', 'untrashEvent' ) );
 
 // delete event from custom table
-add_action( 'delete_post', array( 'Crud', 'deleteEvent' ) );
+add_action( 'delete_post', array( 'CRUD', 'deleteEvent' ) );

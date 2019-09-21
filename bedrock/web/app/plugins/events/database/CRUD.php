@@ -33,32 +33,32 @@ if ( ! class_exists( 'CRUD' ) ):
             if (isset($_POST['tax_input']['post_tag']))
                 $tags = sanitize_text_field($_POST['tax_input']['post_tag']);
 
+            $image_path = get_the_post_thumbnail_url($post_id);
+            if (!$image_path) {
+                $image_path = '';
+            }
+
             global $wpdb;
             $table_name = $wpdb->prefix . 'events';
 
             $query = "SELECT * FROM $table_name WHERE wp_id = $post_id";
             $results = $wpdb->get_results( $query );
 
+            $data = array(
+                'wp_id'       => $wp_id,
+                'title'       => $title,
+                'description' => $description,
+                'date'        => $date,
+                'start_at'    => $start_time,
+                'end_at'      => $end_time,
+                'tags'        => $tags,
+                'image_path'  => $image_path
+            );
+
             if ( count( $results ) == 0 ) {
-                $wpdb->insert( $table_name, array(
-                    'wp_id'       => $wp_id,
-                    'title'       => $title,
-                    'description' => $description,
-                    'date'        => $date,
-                    'start_at'    => $start_time,
-                    'end_at'      => $end_time,
-                    'tags'        => $tags
-                ) );
+                $wpdb->insert( $table_name, $data);
             } else {
-                $wpdb->update( $table_name, array(
-                    'wp_id'       => $wp_id,
-                    'title'       => $title,
-                    'description' => $description,
-                    'date'        => $date,
-                    'start_at'    => $start_time,
-                    'end_at'      => $end_time,
-                    'tags'        => $tags
-                ), array( 'wp_id' => $post_id ) );
+                $wpdb->update( $table_name,$data, array( 'wp_id' => $post_id ) );
             }
         }
 
