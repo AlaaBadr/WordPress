@@ -68,10 +68,6 @@ if ( ! class_exists( 'CustomTheme' ) ):
         {
             if ( ! is_admin() ) {
 
-                $limit = get_option('events-number');
-
-                set_query_var('posts_per_archive_page', $limit);
-
                 if ( ! get_option( 'show-past-events' ) ) {
 
                     $past_cat_id = get_cat_ID( 'past' );
@@ -95,5 +91,15 @@ if ( ! class_exists( 'CustomTheme' ) ):
 
             }
         }
+
+        public static function getEventsLimitPerPage()
+        {
+            if ( ! is_admin() ) {
+                $limit = get_option('events-number');
+
+                set_query_var('posts_per_archive_page', $limit);
+            }
+        }
+
     }
 endif;

@@ -34,3 +34,6 @@ add_filter( 'pre_get_posts', array( 'CustomTheme', 'appearEventsCategories' ) );
 
 // check to show past events to frontend user
 add_filter( 'pre_get_posts', array( 'CustomTheme', 'checkShowingPastEvents' ) );
+
+// paginate events
+add_filter( 'pre_get_posts', array( 'CustomTheme', 'getEventsLimitPerPage' ) );
