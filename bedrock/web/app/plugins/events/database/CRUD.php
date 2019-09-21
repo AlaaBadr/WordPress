@@ -7,7 +7,6 @@ if ( ! class_exists( 'CRUD' ) ):
     {
         public static function createEvent( $post_id, $post, $update )
         {
-
             $post_type = get_post_type($post_id);
 
             if ( $post_type != 'event' || ! isset( $_POST['post_ID'] ) )
@@ -37,8 +36,20 @@ if ( ! class_exists( 'CRUD' ) ):
             global $wpdb;
             $table_name = $wpdb->prefix . 'events';
 
-            if ( $update )
-            {
+            $query = "SELECT * FROM $table_name WHERE wp_id = $post_id";
+            $results = $wpdb->get_results( $query );
+
+            if ( count( $results ) == 0 ) {
+                $wpdb->insert( $table_name, array(
+                    'wp_id'       => $wp_id,
+                    'title'       => $title,
+                    'description' => $description,
+                    'date'        => $date,
+                    'start_at'    => $start_time,
+                    'end_at'      => $end_time,
+                    'tags'        => $tags
+                ) );
+            } else {
                 $wpdb->update( $table_name, array(
                     'wp_id'       => $wp_id,
                     'title'       => $title,
@@ -49,12 +60,10 @@ if ( ! class_exists( 'CRUD' ) ):
                     'tags'        => $tags
                 ), array( 'wp_id' => $post_id ) );
             }
-
         }
 
         public static function trashEvent( $post_id )
         {
-
             $post_type = get_post_type($post_id);
 
             if ( $post_type != 'event' )
@@ -64,12 +73,10 @@ if ( ! class_exists( 'CRUD' ) ):
             $table_name = $wpdb->prefix . 'events';
 
             $wpdb->update( $table_name, array( 'trashed' => true ), array( 'wp_id' => $post_id ) );
-
         }
 
         public static function untrashEvent( $post_id )
         {
-
             $post_type = get_post_type($post_id);
 
             if ( $post_type != 'event' )
@@ -79,12 +86,10 @@ if ( ! class_exists( 'CRUD' ) ):
             $table_name = $wpdb->prefix . 'events';
 
             $wpdb->update( $table_name, array( 'trashed' => false ), array( 'wp_id' => $post_id ) );
-
         }
 
         public static function deleteEvent( $post_id )
         {
-
             $post_type = get_post_type($post_id);
 
             if ( $post_type != 'event' )
@@ -94,7 +99,6 @@ if ( ! class_exists( 'CRUD' ) ):
             $table_name = $wpdb->prefix . 'events';
 
             $wpdb->delete( $table_name, array( 'wp_id' => $post_id ) );
-
         }
 
     }
