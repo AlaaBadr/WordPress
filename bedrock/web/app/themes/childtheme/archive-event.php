@@ -65,13 +65,14 @@ get_header(); ?>
                     <?php get_search_form(); ?>
                 </div><!-- .entry-content -->
 
-                <?php if ( get_option( 'show-past-events' ) ) : ?>
-                <div class="entry-content">
-                    <a Title="Show Past Events" href="<?php echo home_url('/category/past'); ?>">Show Past Events</a>
-                </div><!-- .entry-content -->
-                <?php endif; ?>
             </article><!-- #post-0 -->
 
+        <?php endif; ?>
+
+        <?php if ( get_option( 'show-past-events' ) ) : ?>
+            <div class="entry-content">
+                <a Title="Show Past Events" href="<?php echo home_url('/category/past'); ?>">Show Past Events</a>
+            </div><!-- .entry-content -->
         <?php endif; ?>
 
     </div><!-- #content -->
