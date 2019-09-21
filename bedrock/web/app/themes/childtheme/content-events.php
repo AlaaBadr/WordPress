@@ -20,7 +20,7 @@
         <?php endif; ?>
     </header><!-- .entry-header -->
 
-    <?php the_post_thumbnail(); ?>
+    <?php the_post_thumbnail( array( 500, 400 ) ); ?>
 
     <?php if ( is_search() ) : // Only display Excerpts for Search ?>
         <div class="entry-summary">
