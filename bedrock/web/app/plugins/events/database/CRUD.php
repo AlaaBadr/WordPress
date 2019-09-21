@@ -66,5 +66,20 @@ if ( ! class_exists( 'CRUD' ) ):
             $wpdb->update( $table_name, array( 'trashed' => true ), array( 'wp_id' => $post_id ) );
 
         }
+
+        public static function untrashEvent( $post_id )
+        {
+
+            $post_type = get_post_type($post_id);
+
+            if ( $post_type != 'event' )
+                return;
+
+            global $wpdb;
+            $table_name = $wpdb->prefix . 'events';
+
+            $wpdb->update( $table_name, array( 'trashed' => false ), array( 'wp_id' => $post_id ) );
+
+        }
     }
 endif;

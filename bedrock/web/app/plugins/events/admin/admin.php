@@ -44,3 +44,6 @@ add_action( 'save_post', array( 'CRUD', 'createEvent' ), 10, 3 );
 
 // soft delete event in custom table
 add_action( 'trashed_post', array( 'CRUD', 'trashEvent' ) );
+
+// restore event in custom table
+add_action( 'untrash_post', array( 'Crud', 'untrashEvent' ) );
