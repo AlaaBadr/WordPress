@@ -57,13 +57,19 @@ get_header(); ?>
 
             <article id="post-0" class="post no-results not-found">
                 <header class="entry-header">
-                    <h1 class="entry-title"><?php _e( 'Nothing Found', 'twentyeleven' ); ?></h1>
+                    <h1 class="entry-title"><?php _e( 'No Upcoming Events Found', 'twentyeleven' ); ?></h1>
                 </header><!-- .entry-header -->
 
                 <div class="entry-content">
-                    <p><?php _e( 'Apologies, but no results were found for the requested archive. Perhaps searching will help find a related post.', 'twentyeleven' ); ?></p>
+                    <p><?php _e( 'Apologies, but no results were found for the events archive. You may need to add some!', 'twentyeleven' ); ?></p>
                     <?php get_search_form(); ?>
                 </div><!-- .entry-content -->
+
+                <?php if ( get_option( 'show-past-events' ) ) : ?>
+                <div class="entry-content">
+                    <a Title="Show Past Events" href="<?php echo home_url('/category/past'); ?>">Show Past Events</a>
+                </div><!-- .entry-content -->
+                <?php endif; ?>
             </article><!-- #post-0 -->
 
         <?php endif; ?>
