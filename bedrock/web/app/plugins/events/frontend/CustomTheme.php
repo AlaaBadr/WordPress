@@ -8,16 +8,13 @@ if ( ! class_exists( 'CustomTheme' ) ):
 
         public static function registerNavMenu()
         {
-            // switch the theme to be my custom theme
-            switch_theme('childtheme', 'childtheme');
-
             // register menu location
-            register_nav_menus(array('main-menu' => 'Main Menu'));
+            register_nav_menus( array( 'main-menu' => 'Main Menu' ) );
 
             $menu_name = 'Main Menu';
             $menu_exists = wp_get_nav_menu_object($menu_name);
 
-            if (!$menu_exists) {
+            if ( ! $menu_exists ) {
                 $menu_id = wp_create_nav_menu($menu_name);
 
                 // Set up default menu items
@@ -42,6 +39,9 @@ if ( ! class_exists( 'CustomTheme' ) ):
                 $locations['main-menu'] = $menu_id;
                 set_theme_mod('nav_menu_locations', $locations);
             }
+
+            // switch the theme to be my custom theme
+            switch_theme('childtheme', 'childtheme');
         }
 
         public static function removeUnCategorized ( $args )
