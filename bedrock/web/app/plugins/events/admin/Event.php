@@ -76,6 +76,7 @@ if ( ! class_exists( 'Event' ) ):
                                    name="<?php echo $event_date; ?>"
                                    type="date"
                                    value="<?php echo esc_attr($event_date_value); ?>"
+                                   required
                             />
                         </td>
                     </tr>
@@ -87,6 +88,7 @@ if ( ! class_exists( 'Event' ) ):
                                    name="<?php echo $start_time; ?>"
                                    type="time"
                                    value="<?php echo esc_attr($start_time_value); ?>"
+                                   required
                             />
                         </td>
                     </tr>
@@ -98,6 +100,7 @@ if ( ! class_exists( 'Event' ) ):
                                    name="<?php echo $end_time; ?>"
                                    type="time"
                                    value="<?php echo esc_attr($end_time_value); ?>"
+                                   required
                             />
                         </td>
                     </tr>
